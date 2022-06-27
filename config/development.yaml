@@ -1,0 +1,29 @@
+service:
+  name: Random Rewards
+  description: Random Rewards
+  version: 0.0.1
+  baseUrl: /api
+
+document:
+  baseUrl: /docs
+  username: '{{DOCS_USERNAME}}'
+  password: '{{DOCS_PASSWORD}}'
+
+server:
+  host: localhost
+  port: 3000
+
+distribution:
+  quantity: 10
+  symbols:
+    - AAPL
+    - GOOG
+    - TSLA
+    - AMZN
+    - MSFT
+    - META
+    - NVDA
+  rules:
+    - 95: '3-10'
+    - 3: '10-25'
+    - 2: '25-200'

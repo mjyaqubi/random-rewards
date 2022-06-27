@@ -1,0 +1,134 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/claim-free-share": {
+      "post": {
+        "operationId": "claim-free-share",
+        "summary": "Claim free share",
+        "description": "Claim free share",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimFreeShareRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimFreeShareResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Random Rewards",
+    "description": "Random Rewards | [swagger.json](swagger.json)",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ClaimFreeShareRequestDto": {
+        "type": "object",
+        "properties": {
+          "userAccount": {
+            "type": "string",
+            "example": "user-account-id"
+          }
+        },
+        "required": [
+          "userAccount"
+        ]
+      },
+      "ClaimFreeShareResponseDto": {
+        "type": "object",
+        "properties": {
+          "tickerSymbol": {
+            "type": "string",
+            "example": "AAPL"
+          },
+          "sharePrice": {
+            "type": "string",
+            "example": 100
+          },
+          "quantity": {
+            "type": "string",
+            "example": 1
+          }
+        },
+        "required": [
+          "tickerSymbol",
+          "sharePrice",
+          "quantity"
+        ]
+      },
+      "BadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Bad request"
+          },
+          "status": {
+            "type": "number",
+            "example": 400
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Internal Server Error"
+          },
+          "status": {
+            "type": "number",
+            "example": 500
+          }
+        }
+      }
+    }
+  }
+}
