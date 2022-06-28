@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import {
+  MarketAssetsPrice,
   MarketTradableAssets,
   RewardsAccountAvailableStocks,
 } from './broker.mock.data';
@@ -33,7 +34,11 @@ export class BrokerService {
     // TO-DO: use http service istead of mock data
     // const exchangeResponse = this.httpService.get('url-to-get-last-price-of-an-assets');
 
-    const sharePrice = MarketTradableAssets[tickerSymbol];
+    if (!MarketAssetsPrice[tickerSymbol]) {
+      throw new BadRequestException('symbol does not exist');
+    }
+
+    const sharePrice = MarketAssetsPrice[tickerSymbol];
 
     this.logger.log(
       `[BrokerService] get latest price`,
@@ -71,9 +76,13 @@ export class BrokerService {
     //   quantity,
     // });
 
+    if (!MarketAssetsPrice[tickerSymbol]) {
+      throw new BadRequestException('symbol does not exist');
+    }
+
     const result = {
       success: true,
-      sharePricePaid: 1,
+      sharePricePaid: MarketAssetsPrice[tickerSymbol],
     };
 
     this.logger.log(
